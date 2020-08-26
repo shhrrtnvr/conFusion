@@ -15,14 +15,6 @@ class DishDetail extends Component{
         );
     }
 
-    GetFormattedDate(date) {
-        const M = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        var d = new Date(date);
-        var month = d.getMonth() + 1;
-        var day = d.getDate();
-        var year = d.getFullYear();
-        return M[month] + " " + day + " , " + year;
-    }
 
     renderComments(comments)
     {
@@ -32,7 +24,7 @@ class DishDetail extends Component{
             <div>
                 <ul className="list-unstyled">
                 <li><p>{comment.comment}</p>
-                <p>-- {comment.author}  ,  {this.GetFormattedDate(comment.date)}</p></li>
+                <p>-- {comment.author}  ,  {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p></li>
                 </ul>
             </div>
             );
