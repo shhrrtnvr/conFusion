@@ -18,7 +18,7 @@ function renderDish(dish) {
     );
 }
 
-function renderComments(comments)
+function renderComments({comments, dishID, addComment})
 {
     if (comments == null) return (<div></div>);
     const formattedComments = comments.map((comment) => {
@@ -37,30 +37,36 @@ function renderComments(comments)
             <ul className="list-unstyled">
                 {formattedComments}
             </ul>
-            <CommentForm />
+            <CommentForm dishID={dishID} addComment={addComment}/>
         </div>
     )
 
 }
 
-const DishDetail = (props) => {
+const DishDetail = ({dish, comments, addComment}) => {
     
-    if (props.dish == null) return (<div></div>);
+    if (dish == null) return (<div></div>);
     return (
         <div className="container">
             <div className="row">
                 <Breadcrumb>
                     <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
-                    <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+                    <BreadcrumbItem active>{dish.name}</BreadcrumbItem>
                 </Breadcrumb>
                 <div className="col-12">
-                    <h3>{props.dish.name}</h3>
+                    <h3>{dish.name}</h3>
                     <hr />
                 </div>                
             </div>
             <div className="row">
-                {renderDish(props.dish)}
-                {renderComments(props.comments)}
+                {renderDish(dish)}
+                {
+                    renderComments( {
+                        comments : comments,
+                        dishID : dish.id,
+                        addComment : addComment
+                    })
+                }
             </div>
             
         </div>
